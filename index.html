@@ -56,7 +56,7 @@
       stroke-width: 14;
       stroke-linecap: round;
       /* dashoffset transition matches the 1-second tick so it glides smoothly */
-      transition: stroke-dashoffset 0.9s linear, stroke 0.4s ease;
+      transition: stroke-dashoffset 0.9s linear;
     }
 
     /* Large time readout centred inside the ring */
@@ -239,15 +239,12 @@
         : CIRCUMFERENCE;
       setRingOffset(offset);
 
-      // Colour the ring red and pulse the display when done
+      // Pulse the display when done (ring stays red throughout)
       if (remaining === 0 && totalSecs > 0) {
-        ringEl.style.stroke = '#ef4444';
         displayEl.classList.add('done');
         displayEl.style.color = '#ef4444';
-        // Also update the tab title so you can see it while in another tab
         document.title = 'Done! — Countdown Timer';
       } else {
-        ringEl.style.stroke = '';
         displayEl.classList.remove('done');
         displayEl.style.color = '';
         document.title = remaining > 0
@@ -315,7 +312,6 @@
       displayEl.textContent = '00:00';
       displayEl.classList.remove('done');
       displayEl.style.color = '';
-      ringEl.style.stroke   = '';
       document.title = 'Countdown Timer';
 
       setButtonStates();
@@ -339,7 +335,6 @@
       // Reset done styling if user is setting a new time
       displayEl.classList.remove('done');
       displayEl.style.color = '';
-      ringEl.style.stroke   = '';
       render();
     }
 
